@@ -7,6 +7,7 @@ require 'worldline/acquiring/sdk/domain/data_object'
 require 'worldline/acquiring/sdk/v1/domain/amount_data'
 require 'worldline/acquiring/sdk/v1/domain/api_references_for_responses'
 require 'worldline/acquiring/sdk/v1/domain/card_payment_data_for_resource'
+require 'worldline/acquiring/sdk/v1/domain/emv_data_item'
 
 module Worldline
   module Acquiring
@@ -15,6 +16,7 @@ module Worldline
         module Domain
           # @attr [String] authorization_code
           # @attr [Worldline::Acquiring::SDK::V1::Domain::CardPaymentDataForResource] card_payment_data
+          # @attr [Array<Worldline::Acquiring::SDK::V1::Domain::EmvDataItem>] emv_data
           # @attr [String] operation_id
           # @attr [String] referenced_payment_id
           # @attr [Worldline::Acquiring::SDK::V1::Domain::ApiReferencesForResponses] references
@@ -32,6 +34,8 @@ module Worldline
             attr_accessor :authorization_code
 
             attr_accessor :card_payment_data
+
+            attr_accessor :emv_data
 
             attr_accessor :operation_id
 
@@ -62,6 +66,7 @@ module Worldline
               hash = super
               hash['authorizationCode'] = @authorization_code unless @authorization_code.nil?
               hash['cardPaymentData'] = @card_payment_data.to_h unless @card_payment_data.nil?
+              hash['emvData'] = @emv_data.collect{|val| val.to_h} unless @emv_data.nil?
               hash['operationId'] = @operation_id unless @operation_id.nil?
               hash['referencedPaymentId'] = @referenced_payment_id unless @referenced_payment_id.nil?
               hash['references'] = @references.to_h unless @references.nil?
@@ -85,6 +90,13 @@ module Worldline
               if hash.has_key? 'cardPaymentData'
                 raise TypeError, "value '%s' is not a Hash" % [hash['cardPaymentData']] unless hash['cardPaymentData'].is_a? Hash
                 @card_payment_data = Worldline::Acquiring::SDK::V1::Domain::CardPaymentDataForResource.new_from_hash(hash['cardPaymentData'])
+              end
+              if hash.has_key? 'emvData'
+                raise TypeError, "value '%s' is not an Array" % [hash['emvData']] unless hash['emvData'].is_a? Array
+                @emv_data = []
+                hash['emvData'].each do |e|
+                  @emv_data << Worldline::Acquiring::SDK::V1::Domain::EmvDataItem.new_from_hash(e)
+                end
               end
               if hash.has_key? 'operationId'
                 @operation_id = hash['operationId']

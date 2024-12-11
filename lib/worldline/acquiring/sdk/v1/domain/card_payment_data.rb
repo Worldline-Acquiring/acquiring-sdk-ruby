@@ -15,6 +15,7 @@ module Worldline
         module Domain
           # @attr [true/false] allow_partial_approval
           # @attr [String] brand
+          # @attr [String] brand_selector
           # @attr [true/false] capture_immediately
           # @attr [Worldline::Acquiring::SDK::V1::Domain::PlainCardData] card_data
           # @attr [String] card_entry_mode
@@ -29,6 +30,8 @@ module Worldline
             attr_accessor :allow_partial_approval
 
             attr_accessor :brand
+
+            attr_accessor :brand_selector
 
             attr_accessor :capture_immediately
 
@@ -53,6 +56,7 @@ module Worldline
               hash = super
               hash['allowPartialApproval'] = @allow_partial_approval unless @allow_partial_approval.nil?
               hash['brand'] = @brand unless @brand.nil?
+              hash['brandSelector'] = @brand_selector unless @brand_selector.nil?
               hash['captureImmediately'] = @capture_immediately unless @capture_immediately.nil?
               hash['cardData'] = @card_data.to_h unless @card_data.nil?
               hash['cardEntryMode'] = @card_entry_mode unless @card_entry_mode.nil?
@@ -72,6 +76,9 @@ module Worldline
               end
               if hash.has_key? 'brand'
                 @brand = hash['brand']
+              end
+              if hash.has_key? 'brandSelector'
+                @brand_selector = hash['brandSelector']
               end
               if hash.has_key? 'captureImmediately'
                 @capture_immediately = hash['captureImmediately']

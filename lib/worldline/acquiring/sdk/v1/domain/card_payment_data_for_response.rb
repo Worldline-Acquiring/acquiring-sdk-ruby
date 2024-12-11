@@ -3,7 +3,7 @@
 #
 require 'worldline/acquiring/sdk/domain/data_object'
 require 'worldline/acquiring/sdk/v1/domain/e_commerce_data_for_response'
-require 'worldline/acquiring/sdk/v1/domain/point_of_sale_data'
+require 'worldline/acquiring/sdk/v1/domain/point_of_sale_data_for_response'
 
 module Worldline
   module Acquiring
@@ -12,7 +12,7 @@ module Worldline
         module Domain
           # @attr [String] brand
           # @attr [Worldline::Acquiring::SDK::V1::Domain::ECommerceDataForResponse] ecommerce_data
-          # @attr [Worldline::Acquiring::SDK::V1::Domain::PointOfSaleData] point_of_sale_data
+          # @attr [Worldline::Acquiring::SDK::V1::Domain::PointOfSaleDataForResponse] point_of_sale_data
           class CardPaymentDataForResponse < Worldline::Acquiring::SDK::Domain::DataObject
 
             attr_accessor :brand
@@ -41,7 +41,7 @@ module Worldline
               end
               if hash.has_key? 'pointOfSaleData'
                 raise TypeError, "value '%s' is not a Hash" % [hash['pointOfSaleData']] unless hash['pointOfSaleData'].is_a? Hash
-                @point_of_sale_data = Worldline::Acquiring::SDK::V1::Domain::PointOfSaleData.new_from_hash(hash['pointOfSaleData'])
+                @point_of_sale_data = Worldline::Acquiring::SDK::V1::Domain::PointOfSaleDataForResponse.new_from_hash(hash['pointOfSaleData'])
               end
             end
           end

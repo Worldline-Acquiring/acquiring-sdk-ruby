@@ -4,6 +4,8 @@
 require 'date'
 
 require 'worldline/acquiring/sdk/domain/data_object'
+require 'worldline/acquiring/sdk/v1/domain/card_payment_data_for_balance_inquiry'
+require 'worldline/acquiring/sdk/v1/domain/merchant_data'
 require 'worldline/acquiring/sdk/v1/domain/payment_references'
 require 'worldline/acquiring/sdk/v1/domain/terminal_data'
 
@@ -12,11 +14,17 @@ module Worldline
     module SDK
       module V1
         module Domain
+          # @attr [Worldline::Acquiring::SDK::V1::Domain::CardPaymentDataForBalanceInquiry] card_payment_data
+          # @attr [Worldline::Acquiring::SDK::V1::Domain::MerchantData] merchant
           # @attr [String] operation_id
           # @attr [Worldline::Acquiring::SDK::V1::Domain::PaymentReferences] references
           # @attr [Worldline::Acquiring::SDK::V1::Domain::TerminalData] terminal_data
           # @attr [DateTime] transaction_timestamp
-          class ApiCaptureRequestForRefund < Worldline::Acquiring::SDK::Domain::DataObject
+          class ApiBalanceInquiryRequest < Worldline::Acquiring::SDK::Domain::DataObject
+
+            attr_accessor :card_payment_data
+
+            attr_accessor :merchant
 
             attr_accessor :operation_id
 
@@ -29,6 +37,8 @@ module Worldline
             # @return (Hash)
             def to_h
               hash = super
+              hash['cardPaymentData'] = @card_payment_data.to_h unless @card_payment_data.nil?
+              hash['merchant'] = @merchant.to_h unless @merchant.nil?
               hash['operationId'] = @operation_id unless @operation_id.nil?
               hash['references'] = @references.to_h unless @references.nil?
               hash['terminalData'] = @terminal_data.to_h unless @terminal_data.nil?
@@ -38,6 +48,14 @@ module Worldline
 
             def from_hash(hash)
               super
+              if hash.has_key? 'cardPaymentData'
+                raise TypeError, "value '%s' is not a Hash" % [hash['cardPaymentData']] unless hash['cardPaymentData'].is_a? Hash
+                @card_payment_data = Worldline::Acquiring::SDK::V1::Domain::CardPaymentDataForBalanceInquiry.new_from_hash(hash['cardPaymentData'])
+              end
+              if hash.has_key? 'merchant'
+                raise TypeError, "value '%s' is not a Hash" % [hash['merchant']] unless hash['merchant'].is_a? Hash
+                @merchant = Worldline::Acquiring::SDK::V1::Domain::MerchantData.new_from_hash(hash['merchant'])
+              end
               if hash.has_key? 'operationId'
                 @operation_id = hash['operationId']
               end

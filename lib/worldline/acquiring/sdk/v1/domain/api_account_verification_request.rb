@@ -7,6 +7,7 @@ require 'worldline/acquiring/sdk/domain/data_object'
 require 'worldline/acquiring/sdk/v1/domain/card_payment_data_for_verification'
 require 'worldline/acquiring/sdk/v1/domain/merchant_data'
 require 'worldline/acquiring/sdk/v1/domain/payment_references'
+require 'worldline/acquiring/sdk/v1/domain/terminal_data'
 
 module Worldline
   module Acquiring
@@ -17,6 +18,7 @@ module Worldline
           # @attr [Worldline::Acquiring::SDK::V1::Domain::MerchantData] merchant
           # @attr [String] operation_id
           # @attr [Worldline::Acquiring::SDK::V1::Domain::PaymentReferences] references
+          # @attr [Worldline::Acquiring::SDK::V1::Domain::TerminalData] terminal_data
           # @attr [DateTime] transaction_timestamp
           class ApiAccountVerificationRequest < Worldline::Acquiring::SDK::Domain::DataObject
 
@@ -28,6 +30,8 @@ module Worldline
 
             attr_accessor :references
 
+            attr_accessor :terminal_data
+
             attr_accessor :transaction_timestamp
 
             # @return (Hash)
@@ -37,6 +41,7 @@ module Worldline
               hash['merchant'] = @merchant.to_h unless @merchant.nil?
               hash['operationId'] = @operation_id unless @operation_id.nil?
               hash['references'] = @references.to_h unless @references.nil?
+              hash['terminalData'] = @terminal_data.to_h unless @terminal_data.nil?
               hash['transactionTimestamp'] = @transaction_timestamp.iso8601(3) unless @transaction_timestamp.nil?
               hash
             end
@@ -57,6 +62,10 @@ module Worldline
               if hash.has_key? 'references'
                 raise TypeError, "value '%s' is not a Hash" % [hash['references']] unless hash['references'].is_a? Hash
                 @references = Worldline::Acquiring::SDK::V1::Domain::PaymentReferences.new_from_hash(hash['references'])
+              end
+              if hash.has_key? 'terminalData'
+                raise TypeError, "value '%s' is not a Hash" % [hash['terminalData']] unless hash['terminalData'].is_a? Hash
+                @terminal_data = Worldline::Acquiring::SDK::V1::Domain::TerminalData.new_from_hash(hash['terminalData'])
               end
               if hash.has_key? 'transactionTimestamp'
                 @transaction_timestamp = DateTime.parse(hash['transactionTimestamp'])

@@ -3,6 +3,7 @@
 #
 require 'worldline/acquiring/sdk/api_resource'
 require 'worldline/acquiring/sdk/v1/acquirer/merchant/accountverifications/account_verifications_client'
+require 'worldline/acquiring/sdk/v1/acquirer/merchant/balanceinquiries/balance_inquiries_client'
 require 'worldline/acquiring/sdk/v1/acquirer/merchant/dynamiccurrencyconversion/dynamic_currency_conversion_client'
 require 'worldline/acquiring/sdk/v1/acquirer/merchant/payments/payments_client'
 require 'worldline/acquiring/sdk/v1/acquirer/merchant/refunds/refunds_client'
@@ -42,6 +43,13 @@ module Worldline
               # @return [Worldline::Acquiring::SDK::V1::Acquirer::Merchant::Accountverifications::AccountVerificationsClient]
               def account_verifications
                 Worldline::Acquiring::SDK::V1::Acquirer::Merchant::Accountverifications::AccountVerificationsClient.new(self, nil)
+              end
+
+              # Resource /processing/v1/{acquirerId}/{merchantId}/balance-inquiries
+              #
+              # @return [Worldline::Acquiring::SDK::V1::Acquirer::Merchant::Balanceinquiries::BalanceInquiriesClient]
+              def balance_inquiries
+                Worldline::Acquiring::SDK::V1::Acquirer::Merchant::Balanceinquiries::BalanceInquiriesClient.new(self, nil)
               end
 
               # Resource /processing/v1/{acquirerId}/{merchantId}/operations/{operationId}/reverse
