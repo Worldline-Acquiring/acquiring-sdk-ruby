@@ -41,7 +41,7 @@ module Worldline
           TOKEN_TYPES = [
             TokenType.new('', [
               'processing_payment', 'processing_refund', 'processing_credittransfer', 'processing_accountverification',
-              'processing_operation_reverse', 'processing_dcc_rate', 'services_ping'
+              'processing_balanceinquiry', 'processing_operation_reverse', 'processing_dcc_rate', 'services_ping'
             ]),
           ]
 

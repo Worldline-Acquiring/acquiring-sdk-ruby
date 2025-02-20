@@ -119,7 +119,7 @@ module Worldline
                 # Resource /processing/v1/!{acquirerId}/!{merchantId}/refunds/!{refundId}/authorization-reversals - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Refunds/operation/reverseRefundAuthorization Reverse refund authorization}
                 #
                 # @param refund_id [String]
-                # @param body      [Worldline::Acquiring::SDK::V1::Domain::ApiPaymentReversalRequest]
+                # @param body      [Worldline::Acquiring::SDK::V1::Domain::ApiRefundReversalRequest]
                 # @param context   [Worldline::Acquiring::SDK::CallContext, nil]
                 # @return [Worldline::Acquiring::SDK::V1::Domain::ApiActionResponseForRefund]
                 # @raise [Worldline::Acquiring::SDK::V1::ValidationException] if the request was not correct and couldn't be processed (HTTP status code 400)
