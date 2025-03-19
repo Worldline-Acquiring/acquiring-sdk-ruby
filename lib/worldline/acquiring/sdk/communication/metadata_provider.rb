@@ -14,7 +14,7 @@ module Worldline
         class MetadataProvider
           private
 
-          SDK_VERSION = '1.1.0'.freeze
+          SDK_VERSION = '1.2.0'.freeze
           SERVER_META_INFO_HEADER = 'X-WL-ServerMetaInfo'.freeze
           PROHIBITED_HEADERS = [SERVER_META_INFO_HEADER, 'Date', 'Content-Type', 'Authorization'].sort!.freeze
           CHARSET = 'utf-8'.freeze

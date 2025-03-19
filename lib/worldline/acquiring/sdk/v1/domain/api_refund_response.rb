@@ -4,9 +4,10 @@
 require 'date'
 
 require 'worldline/acquiring/sdk/domain/data_object'
+require 'worldline/acquiring/sdk/v1/domain/additional_response_data'
 require 'worldline/acquiring/sdk/v1/domain/amount_data'
 require 'worldline/acquiring/sdk/v1/domain/api_references_for_responses'
-require 'worldline/acquiring/sdk/v1/domain/card_payment_data_for_resource'
+require 'worldline/acquiring/sdk/v1/domain/card_payment_data_for_response'
 require 'worldline/acquiring/sdk/v1/domain/emv_data_item'
 
 module Worldline
@@ -14,8 +15,9 @@ module Worldline
     module SDK
       module V1
         module Domain
+          # @attr [Worldline::Acquiring::SDK::V1::Domain::AdditionalResponseData] additional_response_data
           # @attr [String] authorization_code
-          # @attr [Worldline::Acquiring::SDK::V1::Domain::CardPaymentDataForResource] card_payment_data
+          # @attr [Worldline::Acquiring::SDK::V1::Domain::CardPaymentDataForResponse] card_payment_data
           # @attr [Array<Worldline::Acquiring::SDK::V1::Domain::EmvDataItem>] emv_data
           # @attr [String] operation_id
           # @attr [String] referenced_payment_id
@@ -25,11 +27,12 @@ module Worldline
           # @attr [String] response_code
           # @attr [String] response_code_category
           # @attr [String] response_code_description
-          # @attr [String] retry_after
           # @attr [String] status
           # @attr [DateTime] status_timestamp
           # @attr [Worldline::Acquiring::SDK::V1::Domain::AmountData] total_authorized_amount
           class ApiRefundResponse < Worldline::Acquiring::SDK::Domain::DataObject
+
+            attr_accessor :additional_response_data
 
             attr_accessor :authorization_code
 
@@ -53,8 +56,6 @@ module Worldline
 
             attr_accessor :response_code_description
 
-            attr_accessor :retry_after
-
             attr_accessor :status
 
             attr_accessor :status_timestamp
@@ -64,6 +65,7 @@ module Worldline
             # @return (Hash)
             def to_h
               hash = super
+              hash['additionalResponseData'] = @additional_response_data.to_h unless @additional_response_data.nil?
               hash['authorizationCode'] = @authorization_code unless @authorization_code.nil?
               hash['cardPaymentData'] = @card_payment_data.to_h unless @card_payment_data.nil?
               hash['emvData'] = @emv_data.collect{|val| val.to_h} unless @emv_data.nil?
@@ -75,7 +77,6 @@ module Worldline
               hash['responseCode'] = @response_code unless @response_code.nil?
               hash['responseCodeCategory'] = @response_code_category unless @response_code_category.nil?
               hash['responseCodeDescription'] = @response_code_description unless @response_code_description.nil?
-              hash['retryAfter'] = @retry_after unless @retry_after.nil?
               hash['status'] = @status unless @status.nil?
               hash['statusTimestamp'] = @status_timestamp.iso8601(3) unless @status_timestamp.nil?
               hash['totalAuthorizedAmount'] = @total_authorized_amount.to_h unless @total_authorized_amount.nil?
@@ -84,12 +85,16 @@ module Worldline
 
             def from_hash(hash)
               super
+              if hash.has_key? 'additionalResponseData'
+                raise TypeError, "value '%s' is not a Hash" % [hash['additionalResponseData']] unless hash['additionalResponseData'].is_a? Hash
+                @additional_response_data = Worldline::Acquiring::SDK::V1::Domain::AdditionalResponseData.new_from_hash(hash['additionalResponseData'])
+              end
               if hash.has_key? 'authorizationCode'
                 @authorization_code = hash['authorizationCode']
               end
               if hash.has_key? 'cardPaymentData'
                 raise TypeError, "value '%s' is not a Hash" % [hash['cardPaymentData']] unless hash['cardPaymentData'].is_a? Hash
-                @card_payment_data = Worldline::Acquiring::SDK::V1::Domain::CardPaymentDataForResource.new_from_hash(hash['cardPaymentData'])
+                @card_payment_data = Worldline::Acquiring::SDK::V1::Domain::CardPaymentDataForResponse.new_from_hash(hash['cardPaymentData'])
               end
               if hash.has_key? 'emvData'
                 raise TypeError, "value '%s' is not an Array" % [hash['emvData']] unless hash['emvData'].is_a? Array
@@ -122,9 +127,6 @@ module Worldline
               end
               if hash.has_key? 'responseCodeDescription'
                 @response_code_description = hash['responseCodeDescription']
-              end
-              if hash.has_key? 'retryAfter'
-                @retry_after = hash['retryAfter']
               end
               if hash.has_key? 'status'
                 @status = hash['status']

@@ -18,7 +18,6 @@ module Worldline
           # @attr [String] response_code
           # @attr [String] response_code_category
           # @attr [String] response_code_description
-          # @attr [String] retry_after
           class SubOperationForRefund < Worldline::Acquiring::SDK::Domain::DataObject
 
             attr_accessor :amount
@@ -35,8 +34,6 @@ module Worldline
 
             attr_accessor :response_code_description
 
-            attr_accessor :retry_after
-
             # @return (Hash)
             def to_h
               hash = super
@@ -47,7 +44,6 @@ module Worldline
               hash['responseCode'] = @response_code unless @response_code.nil?
               hash['responseCodeCategory'] = @response_code_category unless @response_code_category.nil?
               hash['responseCodeDescription'] = @response_code_description unless @response_code_description.nil?
-              hash['retryAfter'] = @retry_after unless @retry_after.nil?
               hash
             end
 
@@ -74,9 +70,6 @@ module Worldline
               end
               if hash.has_key? 'responseCodeDescription'
                 @response_code_description = hash['responseCodeDescription']
-              end
-              if hash.has_key? 'retryAfter'
-                @retry_after = hash['retryAfter']
               end
             end
           end

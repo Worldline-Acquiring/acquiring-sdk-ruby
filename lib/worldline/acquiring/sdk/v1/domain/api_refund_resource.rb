@@ -20,7 +20,6 @@ module Worldline
           # @attr [String] referenced_payment_id
           # @attr [Worldline::Acquiring::SDK::V1::Domain::ApiReferencesForResponses] references
           # @attr [String] refund_id
-          # @attr [String] retry_after
           # @attr [String] status
           # @attr [DateTime] status_timestamp
           # @attr [Worldline::Acquiring::SDK::V1::Domain::AmountData] total_authorized_amount
@@ -38,8 +37,6 @@ module Worldline
 
             attr_accessor :refund_id
 
-            attr_accessor :retry_after
-
             attr_accessor :status
 
             attr_accessor :status_timestamp
@@ -55,7 +52,6 @@ module Worldline
               hash['referencedPaymentId'] = @referenced_payment_id unless @referenced_payment_id.nil?
               hash['references'] = @references.to_h unless @references.nil?
               hash['refundId'] = @refund_id unless @refund_id.nil?
-              hash['retryAfter'] = @retry_after unless @retry_after.nil?
               hash['status'] = @status unless @status.nil?
               hash['statusTimestamp'] = @status_timestamp.iso8601(3) unless @status_timestamp.nil?
               hash['totalAuthorizedAmount'] = @total_authorized_amount.to_h unless @total_authorized_amount.nil?
@@ -87,9 +83,6 @@ module Worldline
               end
               if hash.has_key? 'refundId'
                 @refund_id = hash['refundId']
-              end
-              if hash.has_key? 'retryAfter'
-                @retry_after = hash['retryAfter']
               end
               if hash.has_key? 'status'
                 @status = hash['status']

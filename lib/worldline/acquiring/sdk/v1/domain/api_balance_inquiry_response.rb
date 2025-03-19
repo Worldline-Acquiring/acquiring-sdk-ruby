@@ -2,16 +2,20 @@
 # This file was automatically generated.
 #
 require 'worldline/acquiring/sdk/domain/data_object'
+require 'worldline/acquiring/sdk/v1/domain/additional_response_data'
 require 'worldline/acquiring/sdk/v1/domain/amount_data'
 require 'worldline/acquiring/sdk/v1/domain/api_references_for_responses'
+require 'worldline/acquiring/sdk/v1/domain/card_payment_data_for_response'
 
 module Worldline
   module Acquiring
     module SDK
       module V1
         module Domain
+          # @attr [Worldline::Acquiring::SDK::V1::Domain::AdditionalResponseData] additional_response_data
           # @attr [String] authorization_code
           # @attr [Worldline::Acquiring::SDK::V1::Domain::AmountData] available_amount
+          # @attr [Worldline::Acquiring::SDK::V1::Domain::CardPaymentDataForResponse] card_payment_data
           # @attr [String] operation_id
           # @attr [Worldline::Acquiring::SDK::V1::Domain::ApiReferencesForResponses] references
           # @attr [String] responder
@@ -20,9 +24,13 @@ module Worldline
           # @attr [String] response_code_description
           class ApiBalanceInquiryResponse < Worldline::Acquiring::SDK::Domain::DataObject
 
+            attr_accessor :additional_response_data
+
             attr_accessor :authorization_code
 
             attr_accessor :available_amount
+
+            attr_accessor :card_payment_data
 
             attr_accessor :operation_id
 
@@ -39,8 +47,10 @@ module Worldline
             # @return (Hash)
             def to_h
               hash = super
+              hash['additionalResponseData'] = @additional_response_data.to_h unless @additional_response_data.nil?
               hash['authorizationCode'] = @authorization_code unless @authorization_code.nil?
               hash['availableAmount'] = @available_amount.to_h unless @available_amount.nil?
+              hash['cardPaymentData'] = @card_payment_data.to_h unless @card_payment_data.nil?
               hash['operationId'] = @operation_id unless @operation_id.nil?
               hash['references'] = @references.to_h unless @references.nil?
               hash['responder'] = @responder unless @responder.nil?
@@ -52,12 +62,20 @@ module Worldline
 
             def from_hash(hash)
               super
+              if hash.has_key? 'additionalResponseData'
+                raise TypeError, "value '%s' is not a Hash" % [hash['additionalResponseData']] unless hash['additionalResponseData'].is_a? Hash
+                @additional_response_data = Worldline::Acquiring::SDK::V1::Domain::AdditionalResponseData.new_from_hash(hash['additionalResponseData'])
+              end
               if hash.has_key? 'authorizationCode'
                 @authorization_code = hash['authorizationCode']
               end
               if hash.has_key? 'availableAmount'
                 raise TypeError, "value '%s' is not a Hash" % [hash['availableAmount']] unless hash['availableAmount'].is_a? Hash
                 @available_amount = Worldline::Acquiring::SDK::V1::Domain::AmountData.new_from_hash(hash['availableAmount'])
+              end
+              if hash.has_key? 'cardPaymentData'
+                raise TypeError, "value '%s' is not a Hash" % [hash['cardPaymentData']] unless hash['cardPaymentData'].is_a? Hash
+                @card_payment_data = Worldline::Acquiring::SDK::V1::Domain::CardPaymentDataForResponse.new_from_hash(hash['cardPaymentData'])
               end
               if hash.has_key? 'operationId'
                 @operation_id = hash['operationId']

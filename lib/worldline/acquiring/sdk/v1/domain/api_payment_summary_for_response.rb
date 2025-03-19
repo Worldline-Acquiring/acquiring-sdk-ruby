@@ -13,7 +13,6 @@ module Worldline
         module Domain
           # @attr [String] payment_id
           # @attr [Worldline::Acquiring::SDK::V1::Domain::ApiReferencesForResponses] references
-          # @attr [String] retry_after
           # @attr [String] status
           # @attr [DateTime] status_timestamp
           class ApiPaymentSummaryForResponse < Worldline::Acquiring::SDK::Domain::DataObject
@@ -21,8 +20,6 @@ module Worldline
             attr_accessor :payment_id
 
             attr_accessor :references
-
-            attr_accessor :retry_after
 
             attr_accessor :status
 
@@ -33,7 +30,6 @@ module Worldline
               hash = super
               hash['paymentId'] = @payment_id unless @payment_id.nil?
               hash['references'] = @references.to_h unless @references.nil?
-              hash['retryAfter'] = @retry_after unless @retry_after.nil?
               hash['status'] = @status unless @status.nil?
               hash['statusTimestamp'] = @status_timestamp.iso8601(3) unless @status_timestamp.nil?
               hash
@@ -47,9 +43,6 @@ module Worldline
               if hash.has_key? 'references'
                 raise TypeError, "value '%s' is not a Hash" % [hash['references']] unless hash['references'].is_a? Hash
                 @references = Worldline::Acquiring::SDK::V1::Domain::ApiReferencesForResponses.new_from_hash(hash['references'])
-              end
-              if hash.has_key? 'retryAfter'
-                @retry_after = hash['retryAfter']
               end
               if hash.has_key? 'status'
                 @status = hash['status']

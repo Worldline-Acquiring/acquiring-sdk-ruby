@@ -2,6 +2,7 @@
 # This file was automatically generated.
 #
 require 'worldline/acquiring/sdk/domain/data_object'
+require 'worldline/acquiring/sdk/v1/domain/additional_response_data'
 require 'worldline/acquiring/sdk/v1/domain/api_payment_summary_for_response'
 
 module Worldline
@@ -9,6 +10,7 @@ module Worldline
     module SDK
       module V1
         module Domain
+          # @attr [Worldline::Acquiring::SDK::V1::Domain::AdditionalResponseData] additional_response_data
           # @attr [String] operation_id
           # @attr [Worldline::Acquiring::SDK::V1::Domain::ApiPaymentSummaryForResponse] payment
           # @attr [String] responder
@@ -16,6 +18,8 @@ module Worldline
           # @attr [String] response_code_category
           # @attr [String] response_code_description
           class ApiActionResponse < Worldline::Acquiring::SDK::Domain::DataObject
+
+            attr_accessor :additional_response_data
 
             attr_accessor :operation_id
 
@@ -32,6 +36,7 @@ module Worldline
             # @return (Hash)
             def to_h
               hash = super
+              hash['additionalResponseData'] = @additional_response_data.to_h unless @additional_response_data.nil?
               hash['operationId'] = @operation_id unless @operation_id.nil?
               hash['payment'] = @payment.to_h unless @payment.nil?
               hash['responder'] = @responder unless @responder.nil?
@@ -43,6 +48,10 @@ module Worldline
 
             def from_hash(hash)
               super
+              if hash.has_key? 'additionalResponseData'
+                raise TypeError, "value '%s' is not a Hash" % [hash['additionalResponseData']] unless hash['additionalResponseData'].is_a? Hash
+                @additional_response_data = Worldline::Acquiring::SDK::V1::Domain::AdditionalResponseData.new_from_hash(hash['additionalResponseData'])
+              end
               if hash.has_key? 'operationId'
                 @operation_id = hash['operationId']
               end

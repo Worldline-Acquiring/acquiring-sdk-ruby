@@ -12,6 +12,8 @@ module Worldline
           # @attr [Array<String>] card_reading_capabilities
           # @attr [String] cardholder_activated_terminal_level
           # @attr [true/false] is_attended_terminal
+          # @attr [true/false] is_offline_approved
+          # @attr [String] offline_authorization_response_code
           # @attr [String] pin_entry_capability
           # @attr [String] terminal_id
           # @attr [String] terminal_location
@@ -24,6 +26,10 @@ module Worldline
             attr_accessor :cardholder_activated_terminal_level
 
             attr_accessor :is_attended_terminal
+
+            attr_accessor :is_offline_approved
+
+            attr_accessor :offline_authorization_response_code
 
             attr_accessor :pin_entry_capability
 
@@ -38,6 +44,8 @@ module Worldline
               hash['cardReadingCapabilities'] = @card_reading_capabilities unless @card_reading_capabilities.nil?
               hash['cardholderActivatedTerminalLevel'] = @cardholder_activated_terminal_level unless @cardholder_activated_terminal_level.nil?
               hash['isAttendedTerminal'] = @is_attended_terminal unless @is_attended_terminal.nil?
+              hash['isOfflineApproved'] = @is_offline_approved unless @is_offline_approved.nil?
+              hash['offlineAuthorizationResponseCode'] = @offline_authorization_response_code unless @offline_authorization_response_code.nil?
               hash['pinEntryCapability'] = @pin_entry_capability unless @pin_entry_capability.nil?
               hash['terminalId'] = @terminal_id unless @terminal_id.nil?
               hash['terminalLocation'] = @terminal_location unless @terminal_location.nil?
@@ -61,6 +69,12 @@ module Worldline
               end
               if hash.has_key? 'isAttendedTerminal'
                 @is_attended_terminal = hash['isAttendedTerminal']
+              end
+              if hash.has_key? 'isOfflineApproved'
+                @is_offline_approved = hash['isOfflineApproved']
+              end
+              if hash.has_key? 'offlineAuthorizationResponseCode'
+                @offline_authorization_response_code = hash['offlineAuthorizationResponseCode']
               end
               if hash.has_key? 'pinEntryCapability'
                 @pin_entry_capability = hash['pinEntryCapability']

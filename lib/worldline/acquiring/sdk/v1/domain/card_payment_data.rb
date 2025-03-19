@@ -7,6 +7,7 @@ require 'worldline/acquiring/sdk/v1/domain/e_commerce_data'
 require 'worldline/acquiring/sdk/v1/domain/network_token_data'
 require 'worldline/acquiring/sdk/v1/domain/plain_card_data'
 require 'worldline/acquiring/sdk/v1/domain/point_of_sale_data'
+require 'worldline/acquiring/sdk/v1/domain/service_location_data'
 
 module Worldline
   module Acquiring
@@ -24,6 +25,7 @@ module Worldline
           # @attr [Worldline::Acquiring::SDK::V1::Domain::ECommerceData] ecommerce_data
           # @attr [Worldline::Acquiring::SDK::V1::Domain::NetworkTokenData] network_token_data
           # @attr [Worldline::Acquiring::SDK::V1::Domain::PointOfSaleData] point_of_sale_data
+          # @attr [Worldline::Acquiring::SDK::V1::Domain::ServiceLocationData] service_location_data
           # @attr [String] wallet_id
           class CardPaymentData < Worldline::Acquiring::SDK::Domain::DataObject
 
@@ -49,6 +51,8 @@ module Worldline
 
             attr_accessor :point_of_sale_data
 
+            attr_accessor :service_location_data
+
             attr_accessor :wallet_id
 
             # @return (Hash)
@@ -65,6 +69,7 @@ module Worldline
               hash['ecommerceData'] = @ecommerce_data.to_h unless @ecommerce_data.nil?
               hash['networkTokenData'] = @network_token_data.to_h unless @network_token_data.nil?
               hash['pointOfSaleData'] = @point_of_sale_data.to_h unless @point_of_sale_data.nil?
+              hash['serviceLocationData'] = @service_location_data.to_h unless @service_location_data.nil?
               hash['walletId'] = @wallet_id unless @wallet_id.nil?
               hash
             end
@@ -108,6 +113,10 @@ module Worldline
               if hash.has_key? 'pointOfSaleData'
                 raise TypeError, "value '%s' is not a Hash" % [hash['pointOfSaleData']] unless hash['pointOfSaleData'].is_a? Hash
                 @point_of_sale_data = Worldline::Acquiring::SDK::V1::Domain::PointOfSaleData.new_from_hash(hash['pointOfSaleData'])
+              end
+              if hash.has_key? 'serviceLocationData'
+                raise TypeError, "value '%s' is not a Hash" % [hash['serviceLocationData']] unless hash['serviceLocationData'].is_a? Hash
+                @service_location_data = Worldline::Acquiring::SDK::V1::Domain::ServiceLocationData.new_from_hash(hash['serviceLocationData'])
               end
               if hash.has_key? 'walletId'
                 @wallet_id = hash['walletId']

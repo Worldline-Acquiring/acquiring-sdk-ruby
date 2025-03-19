@@ -2,6 +2,7 @@
 # This file was automatically generated.
 #
 require 'worldline/acquiring/sdk/domain/data_object'
+require 'worldline/acquiring/sdk/v1/domain/additional_response_data'
 require 'worldline/acquiring/sdk/v1/domain/api_references_for_responses'
 require 'worldline/acquiring/sdk/v1/domain/card_payment_data_for_response'
 
@@ -10,6 +11,7 @@ module Worldline
     module SDK
       module V1
         module Domain
+          # @attr [Worldline::Acquiring::SDK::V1::Domain::AdditionalResponseData] additional_response_data
           # @attr [String] authorization_code
           # @attr [Worldline::Acquiring::SDK::V1::Domain::CardPaymentDataForResponse] card_payment_data
           # @attr [String] operation_id
@@ -19,6 +21,8 @@ module Worldline
           # @attr [String] response_code_category
           # @attr [String] response_code_description
           class ApiAccountVerificationResponse < Worldline::Acquiring::SDK::Domain::DataObject
+
+            attr_accessor :additional_response_data
 
             attr_accessor :authorization_code
 
@@ -39,6 +43,7 @@ module Worldline
             # @return (Hash)
             def to_h
               hash = super
+              hash['additionalResponseData'] = @additional_response_data.to_h unless @additional_response_data.nil?
               hash['authorizationCode'] = @authorization_code unless @authorization_code.nil?
               hash['cardPaymentData'] = @card_payment_data.to_h unless @card_payment_data.nil?
               hash['operationId'] = @operation_id unless @operation_id.nil?
@@ -52,6 +57,10 @@ module Worldline
 
             def from_hash(hash)
               super
+              if hash.has_key? 'additionalResponseData'
+                raise TypeError, "value '%s' is not a Hash" % [hash['additionalResponseData']] unless hash['additionalResponseData'].is_a? Hash
+                @additional_response_data = Worldline::Acquiring::SDK::V1::Domain::AdditionalResponseData.new_from_hash(hash['additionalResponseData'])
+              end
               if hash.has_key? 'authorizationCode'
                 @authorization_code = hash['authorizationCode']
               end

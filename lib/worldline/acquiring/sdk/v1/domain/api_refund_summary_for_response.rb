@@ -13,7 +13,6 @@ module Worldline
         module Domain
           # @attr [Worldline::Acquiring::SDK::V1::Domain::ApiReferencesForResponses] references
           # @attr [String] refund_id
-          # @attr [String] retry_after
           # @attr [String] status
           # @attr [DateTime] status_timestamp
           class ApiRefundSummaryForResponse < Worldline::Acquiring::SDK::Domain::DataObject
@@ -21,8 +20,6 @@ module Worldline
             attr_accessor :references
 
             attr_accessor :refund_id
-
-            attr_accessor :retry_after
 
             attr_accessor :status
 
@@ -33,7 +30,6 @@ module Worldline
               hash = super
               hash['references'] = @references.to_h unless @references.nil?
               hash['refundId'] = @refund_id unless @refund_id.nil?
-              hash['retryAfter'] = @retry_after unless @retry_after.nil?
               hash['status'] = @status unless @status.nil?
               hash['statusTimestamp'] = @status_timestamp.iso8601(3) unless @status_timestamp.nil?
               hash
@@ -47,9 +43,6 @@ module Worldline
               end
               if hash.has_key? 'refundId'
                 @refund_id = hash['refundId']
-              end
-              if hash.has_key? 'retryAfter'
-                @retry_after = hash['retryAfter']
               end
               if hash.has_key? 'status'
                 @status = hash['status']
