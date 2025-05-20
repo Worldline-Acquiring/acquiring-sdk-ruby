@@ -11,6 +11,7 @@ module Worldline
       # @attr [String] authorization_secret A secret used for authorization. The meaning of this secret is different for each authorization type.
       #                                     For instance, for OAuth2 this is the client secret
       # @attr [String] oauth2_token_uri     The OAuth2 token URI
+      # @attr [String] oauth2_scopes        The OAuth2 scopes; leave empty to let the SDK provide a set of defaults
       # @attr [String] authorization_type   String representing the authentication algorithm used
       # @attr [Integer] connect_timeout     The number of seconds before a connection attempt with the Worldline Acquiring platform times out.
       # @attr [Integer] socket_timeout      The number of seconds before a timeout occurs when transmitting data to or from the Worldline Acquiring platform.
@@ -50,6 +51,7 @@ module Worldline
         # @param oauth2_client_secret    [String, nil] The OAuth2 client secret.
         #                                This is an alias for _authorization_secret_.
         # @param oauth2_token_uri        [String, nil] The OAuth2 token URI.
+        # @param oauth2_scopes           [String, nil] The OAuth2 scopes; leave empty to let the SDK provide a set of defaults
         # @param authorization_type      [String, nil] string describing the authorization protocol to follow.
         # @param connect_timeout         [Integer, nil] the number of seconds before a connection attempt with the Worldline Acquiring platform times out.
         # @param socket_timeout          [Integer, nil] the number of seconds before a timeout occurs when transmitting data to or from the Worldline Acquiring platform.
@@ -61,7 +63,7 @@ module Worldline
         # @param shopping_cart_extension [Worldline::Acquiring::SDK::Domain::ShoppingCartExtension, nil] stores shopping cart-related metadata.
         def initialize(properties: nil, api_endpoint: nil,
                        authorization_id: nil, authorization_secret: nil,
-                       oauth2_client_id: nil, oauth2_client_secret: nil, oauth2_token_uri: nil,
+                       oauth2_client_id: nil, oauth2_client_secret: nil, oauth2_token_uri: nil, oauth2_scopes: nil,
                        authorization_type: nil,
                        connect_timeout: nil, socket_timeout: nil,
                        max_connections: nil, proxy_configuration: nil,
@@ -70,6 +72,7 @@ module Worldline
             @api_endpoint = get_endpoint(properties)
             @authorization_type = Authentication::AuthorizationType.get_authorization(properties['acquiring.api.authorizationType'])
             @oauth2_token_uri = properties['acquiring.api.oauth2.tokenUri']
+            @oauth2_scopes = properties['acquiring.api.oauth2.scopes']
             @connect_timeout = properties['acquiring.api.connectTimeout']
             @socket_timeout = properties['acquiring.api.socketTimeout']
             @max_connections = get_property(properties, 'acquiring.api.maxConnections', DEFAULT_MAX_CONNECTIONS)
@@ -104,6 +107,9 @@ module Worldline
           if oauth2_token_uri
             @oauth2_token_uri = oauth2_token_uri
           end
+          if oauth2_scopes
+            @oauth2_scopes = oauth2_scopes
+          end
           if authorization_type
             @authorization_type = authorization_type
           end
@@ -132,6 +138,7 @@ module Worldline
         attr_accessor :authorization_id
         attr_accessor :authorization_secret
         attr_accessor :oauth2_token_uri
+        attr_accessor :oauth2_scopes
         attr_accessor :authorization_type
 
         attr_accessor :connect_timeout

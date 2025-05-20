@@ -22,6 +22,7 @@ describe 'CommunicatorConfiguration' do
 
     expect(communicator_config.authorization_id).to be_nil
     expect(communicator_config.authorization_secret).to be_nil
+    expect(communicator_config.oauth2_scopes).to be_nil
     expect(communicator_config.proxy_configuration).to be_nil
     expect(communicator_config.integrator).to be_nil
     expect(communicator_config.shopping_cart_extension).to be_nil
@@ -46,6 +47,7 @@ describe 'CommunicatorConfiguration' do
 
     expect(communicator_config.authorization_id).to be_nil
     expect(communicator_config.authorization_secret).to be_nil
+    expect(communicator_config.oauth2_scopes).to be_nil
     expect(proxy_config).to be_truthy
     expect(proxy_config.scheme).to eq('http')
     expect(proxy_config.host).to eq('proxy.example.org')
@@ -75,6 +77,7 @@ describe 'CommunicatorConfiguration' do
 
     expect(communicator_config.authorization_id).to be_nil
     expect(communicator_config.authorization_secret).to be_nil
+    expect(communicator_config.oauth2_scopes).to be_nil
     expect(proxy_config).to be_truthy
     expect(proxy_config.scheme).to eq('http')
     expect(proxy_config.host).to eq('proxy.example.org')
@@ -102,6 +105,7 @@ describe 'CommunicatorConfiguration' do
 
     expect(communicator_config.authorization_id).to be_nil
     expect(communicator_config.authorization_secret).to be_nil
+    expect(communicator_config.oauth2_scopes).to be_nil
     expect(communicator_config.proxy_configuration).to be_nil
   end
 
@@ -170,6 +174,7 @@ describe 'CommunicatorConfiguration' do
 
     expect(communicator_config.authorization_id).to be_nil
     expect(communicator_config.authorization_secret).to be_nil
+    expect(communicator_config.oauth2_scopes).to be_nil
     expect(communicator_config.proxy_configuration).to be_nil
     expect(communicator_config.integrator).to eq('Worldline.Integrator')
     expect(communicator_config.shopping_cart_extension).to be_truthy
@@ -177,5 +182,23 @@ describe 'CommunicatorConfiguration' do
     expect(communicator_config.shopping_cart_extension.name).to eq('Worldline.ShoppingCarts')
     expect(communicator_config.shopping_cart_extension.version).to eq('1.0')
     expect(communicator_config.shopping_cart_extension.extension_id).to eq('ExtensionId')
+  end
+
+  it 'stores custom OAuth2 scopes' do
+    yaml = '---
+            acquiring.api.endpoint.host: api.preprod.acquiring.worldline-solutions.com
+            acquiring.api.authorizationType: OAuth2
+            acquiring.api.oauth2.scopes: processing_dcc_rate invalid_scope
+            acquiring.api.connectTimeout: 20
+            acquiring.api.socketTimeout: 10'
+    config = YAML.load(yaml)
+
+    communicator_config = CommunicatorConfiguration.new(properties: config)
+
+    expect(communicator_config.api_endpoint).to eq('https://api.preprod.acquiring.worldline-solutions.com')
+    expect(communicator_config.authorization_type).to eq('OAuth2')
+    expect(communicator_config.connect_timeout).to eq(20)
+    expect(communicator_config.socket_timeout).to eq(10)
+    expect(communicator_config.oauth2_scopes).to eq('processing_dcc_rate invalid_scope')
   end
 end

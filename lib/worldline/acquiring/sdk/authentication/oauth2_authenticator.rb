@@ -1,6 +1,7 @@
 require 'concurrent'
 require 'worldline/acquiring/sdk/authentication/authenticator'
 require 'worldline/acquiring/sdk/authentication/oauth2_exception'
+require 'worldline/acquiring/sdk/authentication/oauth2_scopes'
 require 'worldline/acquiring/sdk/communication/default_connection'
 require 'worldline/acquiring/sdk/communication/request_header'
 
@@ -17,7 +18,7 @@ module Worldline
 
             def initialize(path, scopes)
               @path = path
-              @scopes = scopes.join(' ')
+              @scopes = scopes
             end
 
             attr_reader :path
@@ -39,10 +40,7 @@ module Worldline
           # While at the moment all scopes fit in one request, keep this code so we can easily add more token types if necessary.
           # The empty path will ensure that all paths will match, as each full path ends with an empty string.
           TOKEN_TYPES = [
-            TokenType.new('', [
-              'processing_payment', 'processing_refund', 'processing_credittransfer', 'processing_accountverification',
-              'processing_balanceinquiry', 'processing_operation_reverse', 'processing_dcc_rate', 'services_ping'
-            ]),
+            TokenType.new('', OAuth2Scopes.all.join(' ')),
           ]
 
           public
@@ -67,14 +65,21 @@ module Worldline
             @connect_timeout = communicator_configuration.connect_timeout
             @socket_timeout = communicator_configuration.socket_timeout
             @proxy_configuration = communicator_configuration.proxy_configuration
+
+            oauth2_scopes = communicator_configuration.oauth2_scopes
+            if oauth2_scopes.nil? || oauth2_scopes.empty?
+              @path_to_scopes_mapper = lambda { |path| get_token_type(path).scopes }
+            else
+              @path_to_scopes_mapper = lambda { |_| oauth2_scopes }
+            end
           end
 
           # @param http_method     [String, nil] 'GET', 'PUT', 'POST' or 'DELETE' indicating which HTTP method will be used with the request
           # @param resource_uri    [URI::HTTP, nil] URI object that includes #path and #query of the URL that will be used, #query may be *nil*
           # @param request_headers [Array<Worldline::Acquiring::SDK::Communication::RequestHeader>, nil] all headers used by the request
           def get_authorization(http_method, resource_uri, request_headers)
-            token_type = get_token_type(resource_uri&.path)
-            access_token = @access_tokens.compute(token_type.path) { |existing_token| get_valid_access_token(existing_token, token_type) }
+            scopes = @path_to_scopes_mapper.call(resource_uri&.path)
+            access_token = @access_tokens.compute(scopes) { |existing_token| get_valid_access_token(existing_token, scopes) }
             "Bearer #{access_token.token}"
           end
 
@@ -89,9 +94,9 @@ module Worldline
             raise ArgumentError.new("scope could not be found for path '#{full_path}'")
           end
 
-          def get_valid_access_token(existing_token, token_type)
+          def get_valid_access_token(existing_token, scopes)
             if is_token_invalid(existing_token)
-              return get_access_token(token_type)
+              return get_access_token(scopes)
             end
             existing_token
           end
@@ -100,9 +105,9 @@ module Worldline
             not access_token or access_token.expiration < Time.now
           end
 
-          def get_access_token(token_type)
+          def get_access_token(scopes)
             request_headers = [RequestHeader.new('Content-Type', 'application/x-www-form-urlencoded')]
-            request_body = "grant_type=client_credentials&client_id=#{@client_id}&client_secret=#{@client_secret}&scope=#{token_type.scopes}"
+            request_body = "grant_type=client_credentials&client_id=#{@client_id}&client_secret=#{@client_secret}&scope=#{scopes}"
 
             start_time = Time.now
 
