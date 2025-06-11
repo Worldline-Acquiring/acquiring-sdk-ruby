@@ -43,8 +43,8 @@ module Worldline
         def self.create_communicator_from_configuration(configuration, metadata_provider: nil,
                                                         connection: nil, authenticator: nil, marshaller: nil)
           unless metadata_provider
-            metadata_provider = MetadataProvider.new(configuration.integrator,
-                                                      shopping_cart_extension: configuration.shopping_cart_extension)
+            metadata_provider = Communication::MetadataProvider.new(configuration.integrator,
+                                                                    shopping_cart_extension: configuration.shopping_cart_extension)
           end
           unless connection
             connection = Communication::DefaultConnection.new({ connect_timeout: configuration.connect_timeout,
@@ -56,7 +56,7 @@ module Worldline
             authenticator = get_authenticator(configuration)
           end
           unless marshaller
-            marshaller = DefaultMarshaller.instance
+            marshaller = JSON::DefaultMarshaller.instance
           end
           Communicator.new(configuration.api_endpoint, connection, authenticator, metadata_provider, marshaller)
         end
