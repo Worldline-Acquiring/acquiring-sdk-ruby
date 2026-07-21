@@ -17,7 +17,7 @@ module Worldline
           # @attr [String] rate_reference_id
           # @attr [String] target_currency
           # @attr [Worldline::Acquiring::SDK::V1::Domain::TransactionDataForDcc] transaction
-          class GetDCCRateRequest < Worldline::Acquiring::SDK::Domain::DataObject
+          class GetDccRateRequest < Worldline::Acquiring::SDK::Domain::DataObject
 
             attr_accessor :card_payment_data
 

@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'yaml'
 require 'integration_setup'
 require 'webmock/rspec'
-require 'worldline/acquiring/sdk/v1/acquirer/merchant/payments/get_payment_status_params'
+require 'worldline/acquiring/sdk/v1/acquirer/merchant/cardpayments/get_payment_status_params'
 
 describe 'process payment' do
 
@@ -11,7 +11,7 @@ describe 'process payment' do
 
   it 'can be accessed' do
     Integration.init_client(false) do |client|
-      payments_client = client.v1.acquirer(Integration::ACQUIRER_ID).merchant(Integration::MERCHANT_ID).payments
+      payments_client = client.v1.acquirer(Integration::ACQUIRER_ID).merchant(Integration::MERCHANT_ID).card_payments
 
       request = Integration.get_api_payment_request
       response = payments_client.process_payment(request)
@@ -30,7 +30,7 @@ describe 'process payment' do
 
       payment_id = response.payment_id
 
-      query = Worldline::Acquiring::SDK::V1::Acquirer::Merchant::Payments::GetPaymentStatusParams.new
+      query = Worldline::Acquiring::SDK::V1::Acquirer::Merchant::Cardpayments::GetPaymentStatusParams.new
       query.return_operations = true
 
       status = payments_client.get_payment_status(payment_id, query)

@@ -18,9 +18,9 @@ module Worldline
       module V1
         module Acquirer
           module Merchant
-            module Payments
-              # Payments client. Thread-safe.
-              class PaymentsClient < Worldline::Acquiring::SDK::ApiResource
+            module Cardpayments
+              # CardPayments client. Thread-safe.
+              class CardPaymentsClient < Worldline::Acquiring::SDK::ApiResource
 
                 # @param parent       [Worldline::Acquiring::SDK::ApiResource]
                 # @param path_context [Hash, nil]
@@ -28,7 +28,7 @@ module Worldline
                   super(parent: parent, path_context: path_context)
                 end
 
-                # Resource /processing/v1/!{acquirerId}/!{merchantId}/payments - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Payments/operation/processPayment Create payment}
+                # Resource /processing/v1/!{acquirerId}/!{merchantId}/payments - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Card-Payments/operation/processPayment Create payment}
                 #
                 # @param body    [Worldline::Acquiring::SDK::V1::Domain::ApiPaymentRequest]
                 # @param context [Worldline::Acquiring::SDK::CallContext, nil]
@@ -56,10 +56,10 @@ module Worldline
                   raise Worldline::Acquiring::SDK::V1.create_exception(e.status_code, e.body, error_object, context)
                 end
 
-                # Resource /processing/v1/!{acquirerId}/!{merchantId}/payments/!{paymentId} - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Payments/operation/getPaymentStatus Retrieve payment}
+                # Resource /processing/v1/!{acquirerId}/!{merchantId}/payments/!{paymentId} - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Card-Payments/operation/getPaymentStatus Retrieve payment}
                 #
                 # @param payment_id [String]
-                # @param query      [Worldline::Acquiring::SDK::V1::Acquirer::Merchant::Payments::GetPaymentStatusParams]
+                # @param query      [Worldline::Acquiring::SDK::V1::Acquirer::Merchant::Cardpayments::GetPaymentStatusParams]
                 # @param context    [Worldline::Acquiring::SDK::CallContext, nil]
                 # @return [Worldline::Acquiring::SDK::V1::Domain::ApiPaymentResource]
                 # @raise [Worldline::Acquiring::SDK::V1::ValidationException] if the request was not correct and couldn't be processed (HTTP status code 400)
@@ -87,7 +87,7 @@ module Worldline
                   raise Worldline::Acquiring::SDK::V1.create_exception(e.status_code, e.body, error_object, context)
                 end
 
-                # Resource /processing/v1/!{acquirerId}/!{merchantId}/payments/!{paymentId}/captures - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Payments/operation/simpleCaptureOfPayment Capture payment}
+                # Resource /processing/v1/!{acquirerId}/!{merchantId}/payments/!{paymentId}/captures - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Card-Payments/operation/simpleCaptureOfPayment Capture payment}
                 #
                 # @param payment_id [String]
                 # @param body       [Worldline::Acquiring::SDK::V1::Domain::ApiCaptureRequest]
@@ -119,7 +119,7 @@ module Worldline
                   raise Worldline::Acquiring::SDK::V1.create_exception(e.status_code, e.body, error_object, context)
                 end
 
-                # Resource /processing/v1/!{acquirerId}/!{merchantId}/payments/!{paymentId}/authorization-reversals - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Payments/operation/reverseAuthorization Reverse authorization}
+                # Resource /processing/v1/!{acquirerId}/!{merchantId}/payments/!{paymentId}/authorization-reversals - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Card-Payments/operation/reverseAuthorization Reverse authorization}
                 #
                 # @param payment_id [String]
                 # @param body       [Worldline::Acquiring::SDK::V1::Domain::ApiPaymentReversalRequest]
@@ -151,7 +151,7 @@ module Worldline
                   raise Worldline::Acquiring::SDK::V1.create_exception(e.status_code, e.body, error_object, context)
                 end
 
-                # Resource /processing/v1/!{acquirerId}/!{merchantId}/payments/!{paymentId}/increments - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Payments/operation/incrementPayment Increment authorization}
+                # Resource /processing/v1/!{acquirerId}/!{merchantId}/payments/!{paymentId}/increments - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Card-Payments/operation/incrementPayment Increment authorization}
                 #
                 # @param payment_id [String]
                 # @param body       [Worldline::Acquiring::SDK::V1::Domain::ApiIncrementRequest]
@@ -183,7 +183,7 @@ module Worldline
                   raise Worldline::Acquiring::SDK::V1.create_exception(e.status_code, e.body, error_object, context)
                 end
 
-                # Resource /processing/v1/!{acquirerId}/!{merchantId}/payments/!{paymentId}/refunds - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Payments/operation/createRefund Refund payment}
+                # Resource /processing/v1/!{acquirerId}/!{merchantId}/payments/!{paymentId}/refunds - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Card-Payments/operation/createRefund Refund card payment}
                 #
                 # @param payment_id [String]
                 # @param body       [Worldline::Acquiring::SDK::V1::Domain::ApiPaymentRefundRequest]

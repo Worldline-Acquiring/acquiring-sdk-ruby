@@ -11,6 +11,7 @@ module Worldline
           # @attr [String] payment_account_reference
           # @attr [String] retrieval_reference_number
           # @attr [String] scheme_transaction_id
+          # @attr [String] scheme_transaction_link_id
           class ApiReferencesForResponses < Worldline::Acquiring::SDK::Domain::DataObject
 
             attr_accessor :payment_account_reference
@@ -19,12 +20,15 @@ module Worldline
 
             attr_accessor :scheme_transaction_id
 
+            attr_accessor :scheme_transaction_link_id
+
             # @return (Hash)
             def to_h
               hash = super
               hash['paymentAccountReference'] = @payment_account_reference unless @payment_account_reference.nil?
               hash['retrievalReferenceNumber'] = @retrieval_reference_number unless @retrieval_reference_number.nil?
               hash['schemeTransactionId'] = @scheme_transaction_id unless @scheme_transaction_id.nil?
+              hash['schemeTransactionLinkId'] = @scheme_transaction_link_id unless @scheme_transaction_link_id.nil?
               hash
             end
 
@@ -38,6 +42,9 @@ module Worldline
               end
               if hash.has_key? 'schemeTransactionId'
                 @scheme_transaction_id = hash['schemeTransactionId']
+              end
+              if hash.has_key? 'schemeTransactionLinkId'
+                @scheme_transaction_link_id = hash['schemeTransactionLinkId']
               end
             end
           end

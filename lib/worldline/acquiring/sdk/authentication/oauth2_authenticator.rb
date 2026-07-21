@@ -106,7 +106,7 @@ module Worldline
           end
 
           def get_access_token(scopes)
-            request_headers = [RequestHeader.new('Content-Type', 'application/x-www-form-urlencoded')]
+            request_headers = [Worldline::Acquiring::SDK::Communication::RequestHeader.new('Content-Type', 'application/x-www-form-urlencoded')]
             request_body = "grant_type=client_credentials&client_id=#{@client_id}&client_secret=#{@client_secret}&scope=#{scopes}"
 
             start_time = Time.now

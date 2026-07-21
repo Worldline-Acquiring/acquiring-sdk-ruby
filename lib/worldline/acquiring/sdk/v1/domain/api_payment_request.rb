@@ -4,6 +4,7 @@
 require 'date'
 
 require 'worldline/acquiring/sdk/domain/data_object'
+require 'worldline/acquiring/sdk/v1/domain/amount_breakdown_data'
 require 'worldline/acquiring/sdk/v1/domain/amount_data'
 require 'worldline/acquiring/sdk/v1/domain/card_payment_data'
 require 'worldline/acquiring/sdk/v1/domain/dcc_data'
@@ -17,6 +18,7 @@ module Worldline
       module V1
         module Domain
           # @attr [Worldline::Acquiring::SDK::V1::Domain::AmountData] amount
+          # @attr [Worldline::Acquiring::SDK::V1::Domain::AmountBreakdownData] amount_breakdown_data
           # @attr [String] authorization_type
           # @attr [Worldline::Acquiring::SDK::V1::Domain::CardPaymentData] card_payment_data
           # @attr [Worldline::Acquiring::SDK::V1::Domain::DccData] dynamic_currency_conversion
@@ -28,6 +30,8 @@ module Worldline
           class ApiPaymentRequest < Worldline::Acquiring::SDK::Domain::DataObject
 
             attr_accessor :amount
+
+            attr_accessor :amount_breakdown_data
 
             attr_accessor :authorization_type
 
@@ -49,6 +53,7 @@ module Worldline
             def to_h
               hash = super
               hash['amount'] = @amount.to_h unless @amount.nil?
+              hash['amountBreakdownData'] = @amount_breakdown_data.to_h unless @amount_breakdown_data.nil?
               hash['authorizationType'] = @authorization_type unless @authorization_type.nil?
               hash['cardPaymentData'] = @card_payment_data.to_h unless @card_payment_data.nil?
               hash['dynamicCurrencyConversion'] = @dynamic_currency_conversion.to_h unless @dynamic_currency_conversion.nil?
@@ -65,6 +70,10 @@ module Worldline
               if hash.has_key? 'amount'
                 raise TypeError, "value '%s' is not a Hash" % [hash['amount']] unless hash['amount'].is_a? Hash
                 @amount = Worldline::Acquiring::SDK::V1::Domain::AmountData.new_from_hash(hash['amount'])
+              end
+              if hash.has_key? 'amountBreakdownData'
+                raise TypeError, "value '%s' is not a Hash" % [hash['amountBreakdownData']] unless hash['amountBreakdownData'].is_a? Hash
+                @amount_breakdown_data = Worldline::Acquiring::SDK::V1::Domain::AmountBreakdownData.new_from_hash(hash['amountBreakdownData'])
               end
               if hash.has_key? 'authorizationType'
                 @authorization_type = hash['authorizationType']

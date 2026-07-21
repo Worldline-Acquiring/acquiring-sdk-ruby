@@ -10,12 +10,15 @@ module Worldline
         module Domain
           # @attr [String] card_on_file_initiator
           # @attr [String] initial_scheme_transaction_id
+          # @attr [String] initial_scheme_transaction_link_id
           # @attr [String] transaction_type
           class SubsequentCardOnFileData < Worldline::Acquiring::SDK::Domain::DataObject
 
             attr_accessor :card_on_file_initiator
 
             attr_accessor :initial_scheme_transaction_id
+
+            attr_accessor :initial_scheme_transaction_link_id
 
             attr_accessor :transaction_type
 
@@ -24,6 +27,7 @@ module Worldline
               hash = super
               hash['cardOnFileInitiator'] = @card_on_file_initiator unless @card_on_file_initiator.nil?
               hash['initialSchemeTransactionId'] = @initial_scheme_transaction_id unless @initial_scheme_transaction_id.nil?
+              hash['initialSchemeTransactionLinkId'] = @initial_scheme_transaction_link_id unless @initial_scheme_transaction_link_id.nil?
               hash['transactionType'] = @transaction_type unless @transaction_type.nil?
               hash
             end
@@ -35,6 +39,9 @@ module Worldline
               end
               if hash.has_key? 'initialSchemeTransactionId'
                 @initial_scheme_transaction_id = hash['initialSchemeTransactionId']
+              end
+              if hash.has_key? 'initialSchemeTransactionLinkId'
+                @initial_scheme_transaction_link_id = hash['initialSchemeTransactionLinkId']
               end
               if hash.has_key? 'transactionType'
                 @transaction_type = hash['transactionType']

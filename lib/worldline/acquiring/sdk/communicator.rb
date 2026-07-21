@@ -482,10 +482,10 @@ module Worldline
                 raise Communication::NotFoundException.new(cause, 'The requested resource was not found; invalid path: ' +
                   request_path)
               else
-                raise Communication::CommunicationException, cause
+                raise Worldline::Acquiring::SDK::Communication::CommunicationException, cause
               end
             else
-              raise Communication::ResponseException.new(status_code, headers, body)
+              raise Worldline::Acquiring::SDK::Communication::ResponseException.new(status_code, headers, body)
             end
           end
         end

@@ -25,7 +25,7 @@ module Worldline
 
                 # Resource /services/v1/!{acquirerId}/!{merchantId}/dcc-rates - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Dynamic-Currency-Conversion/operation/requestDccRate Request DCC rate}
                 #
-                # @param body    [Worldline::Acquiring::SDK::V1::Domain::GetDCCRateRequest]
+                # @param body    [Worldline::Acquiring::SDK::V1::Domain::GetDccRateRequest]
                 # @param context [Worldline::Acquiring::SDK::CallContext, nil]
                 # @return [Worldline::Acquiring::SDK::V1::Domain::GetDccRateResponse]
                 # @raise [Worldline::Acquiring::SDK::V1::ValidationException] if the request was not correct and couldn't be processed (HTTP status code 400)

@@ -15,9 +15,9 @@ module Worldline
       module V1
         module Acquirer
           module Merchant
-            module Refunds
-              # Refunds client. Thread-safe.
-              class RefundsClient < Worldline::Acquiring::SDK::ApiResource
+            module Cardrefunds
+              # CardRefunds client. Thread-safe.
+              class CardRefundsClient < Worldline::Acquiring::SDK::ApiResource
 
                 # @param parent       [Worldline::Acquiring::SDK::ApiResource]
                 # @param path_context [Hash, nil]
@@ -25,7 +25,7 @@ module Worldline
                   super(parent: parent, path_context: path_context)
                 end
 
-                # Resource /processing/v1/!{acquirerId}/!{merchantId}/refunds - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Refunds/operation/processStandaloneRefund Create standalone refund}
+                # Resource /processing/v1/!{acquirerId}/!{merchantId}/refunds - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Card-Refunds/operation/processStandaloneRefund Create standalone card refund}
                 #
                 # @param body    [Worldline::Acquiring::SDK::V1::Domain::ApiRefundRequest]
                 # @param context [Worldline::Acquiring::SDK::CallContext, nil]
@@ -53,10 +53,10 @@ module Worldline
                   raise Worldline::Acquiring::SDK::V1.create_exception(e.status_code, e.body, error_object, context)
                 end
 
-                # Resource /processing/v1/!{acquirerId}/!{merchantId}/refunds/!{refundId} - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Refunds/operation/getRefund Retrieve refund}
+                # Resource /processing/v1/!{acquirerId}/!{merchantId}/refunds/!{refundId} - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Card-Refunds/operation/getRefund Retrieve card refund}
                 #
                 # @param refund_id [String]
-                # @param query     [Worldline::Acquiring::SDK::V1::Acquirer::Merchant::Refunds::GetRefundParams]
+                # @param query     [Worldline::Acquiring::SDK::V1::Acquirer::Merchant::Cardrefunds::GetRefundParams]
                 # @param context   [Worldline::Acquiring::SDK::CallContext, nil]
                 # @return [Worldline::Acquiring::SDK::V1::Domain::ApiRefundResource]
                 # @raise [Worldline::Acquiring::SDK::V1::ValidationException] if the request was not correct and couldn't be processed (HTTP status code 400)
@@ -84,7 +84,7 @@ module Worldline
                   raise Worldline::Acquiring::SDK::V1.create_exception(e.status_code, e.body, error_object, context)
                 end
 
-                # Resource /processing/v1/!{acquirerId}/!{merchantId}/refunds/!{refundId}/captures - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Refunds/operation/captureRefund Capture refund}
+                # Resource /processing/v1/!{acquirerId}/!{merchantId}/refunds/!{refundId}/captures - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Card-Refunds/operation/captureRefund Capture refund}
                 #
                 # @param refund_id [String]
                 # @param body      [Worldline::Acquiring::SDK::V1::Domain::ApiCaptureRequestForRefund]
@@ -116,7 +116,7 @@ module Worldline
                   raise Worldline::Acquiring::SDK::V1.create_exception(e.status_code, e.body, error_object, context)
                 end
 
-                # Resource /processing/v1/!{acquirerId}/!{merchantId}/refunds/!{refundId}/authorization-reversals - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Refunds/operation/reverseRefundAuthorization Reverse refund authorization}
+                # Resource /processing/v1/!{acquirerId}/!{merchantId}/refunds/!{refundId}/authorization-reversals - {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Card-Refunds/operation/reverseRefundAuthorization Reverse refund authorization}
                 #
                 # @param refund_id [String]
                 # @param body      [Worldline::Acquiring::SDK::V1::Domain::ApiRefundReversalRequest]

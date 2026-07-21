@@ -10,6 +10,7 @@ module Worldline
         module Domain
           # @attr [String] detail
           # @attr [String] instance
+          # @attr [String] request_id
           # @attr [Integer] status
           # @attr [String] title
           # @attr [String] type
@@ -18,6 +19,8 @@ module Worldline
             attr_accessor :detail
 
             attr_accessor :instance
+
+            attr_accessor :request_id
 
             attr_accessor :status
 
@@ -30,6 +33,7 @@ module Worldline
               hash = super
               hash['detail'] = @detail unless @detail.nil?
               hash['instance'] = @instance unless @instance.nil?
+              hash['requestId'] = @request_id unless @request_id.nil?
               hash['status'] = @status unless @status.nil?
               hash['title'] = @title unless @title.nil?
               hash['type'] = @type unless @type.nil?
@@ -43,6 +47,9 @@ module Worldline
               end
               if hash.has_key? 'instance'
                 @instance = hash['instance']
+              end
+              if hash.has_key? 'requestId'
+                @request_id = hash['requestId']
               end
               if hash.has_key? 'status'
                 @status = hash['status']

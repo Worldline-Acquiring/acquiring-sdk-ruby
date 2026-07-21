@@ -13,7 +13,7 @@ describe 'custom OAuth2 scopes' do
       configuration = Integration.init_communicator_configuration
       configuration.oauth2_scopes = oauth2_scopes
 
-      Factory.create_client_from_configuration(configuration) do |client|
+      Worldline::Acquiring::SDK::Factory.create_client_from_configuration(configuration) do |client|
         request = Integration.get_dcc_rate_request
         response = client.v1.acquirer(Integration::ACQUIRER_ID).merchant(Integration::MERCHANT_ID).dynamic_currency_conversion.request_dcc_rate(request)
 
@@ -31,7 +31,7 @@ describe 'custom OAuth2 scopes' do
     configuration = Integration.init_communicator_configuration
     configuration.oauth2_scopes = 'services_ping'
 
-    Factory.create_client_from_configuration(configuration) do |client|
+    Worldline::Acquiring::SDK::Factory.create_client_from_configuration(configuration) do |client|
       request = Integration.get_dcc_rate_request
       expect{client.v1.acquirer(Integration::ACQUIRER_ID).merchant(Integration::MERCHANT_ID).dynamic_currency_conversion.request_dcc_rate(request)}
         .to raise_error(Worldline::Acquiring::SDK::V1::AuthorizationException)
@@ -42,7 +42,7 @@ describe 'custom OAuth2 scopes' do
     configuration = Integration.init_communicator_configuration
     configuration.oauth2_scopes = 'processing_dcc_rate invalid_scope'
 
-    Factory.create_client_from_configuration(configuration) do |client|
+    Worldline::Acquiring::SDK::Factory.create_client_from_configuration(configuration) do |client|
       request = Integration.get_dcc_rate_request
       expect {client.v1.acquirer(Integration::ACQUIRER_ID).merchant(Integration::MERCHANT_ID).dynamic_currency_conversion.request_dcc_rate(request)}
         .to raise_error(Worldline::Acquiring::SDK::Authentication::OAuth2Exception)

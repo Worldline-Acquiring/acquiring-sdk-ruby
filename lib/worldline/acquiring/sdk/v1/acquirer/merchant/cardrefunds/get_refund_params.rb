@@ -10,11 +10,11 @@ module Worldline
       module V1
         module Acquirer
           module Merchant
-            module Payments
-              # Query parameters for {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Payments/operation/getPaymentStatus Retrieve payment}
+            module Cardrefunds
+              # Query parameters for {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Card-Refunds/operation/getRefund Retrieve card refund}
               #
               # @attr [true/false] return_operations
-              class GetPaymentStatusParams < Worldline::Acquiring::SDK::Communication::ParamRequest
+              class GetRefundParams < Worldline::Acquiring::SDK::Communication::ParamRequest
 
                 attr_accessor :return_operations
 

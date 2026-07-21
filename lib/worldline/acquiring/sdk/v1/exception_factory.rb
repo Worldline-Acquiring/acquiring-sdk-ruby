@@ -14,6 +14,7 @@ module Worldline
     module SDK
       module V1
         def self.create_exception(status_code, response_body, error_object, context)
+          return create_exception_from_response_fields(status_code, response_body, nil, nil, nil, nil, nil, context) if error_object.nil?
           raise ArgumentError.new("unsupported error object type: " + error_object.class.name) unless error_object.is_a?(Worldline::Acquiring::SDK::V1::Domain::ApiPaymentErrorResponse)
           create_exception_from_response_fields(status_code, response_body, error_object.type, error_object.title, error_object.status, error_object.detail, error_object.instance, context)
         end

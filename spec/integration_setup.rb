@@ -99,7 +99,7 @@ module Integration
     card_data_for_dcc.bin = '41766699'
     card_data_for_dcc.brand = 'VISA'
 
-    request = Worldline::Acquiring::SDK::V1::Domain::GetDCCRateRequest.new
+    request = Worldline::Acquiring::SDK::V1::Domain::GetDccRateRequest.new
     request.operation_id = SecureRandom.uuid
     request.target_currency = 'EUR'
     request.card_payment_data = card_data_for_dcc

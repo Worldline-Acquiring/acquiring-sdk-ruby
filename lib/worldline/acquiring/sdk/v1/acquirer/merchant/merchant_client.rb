@@ -4,9 +4,9 @@
 require 'worldline/acquiring/sdk/api_resource'
 require 'worldline/acquiring/sdk/v1/acquirer/merchant/accountverifications/account_verifications_client'
 require 'worldline/acquiring/sdk/v1/acquirer/merchant/balanceinquiries/balance_inquiries_client'
+require 'worldline/acquiring/sdk/v1/acquirer/merchant/cardpayments/card_payments_client'
+require 'worldline/acquiring/sdk/v1/acquirer/merchant/cardrefunds/card_refunds_client'
 require 'worldline/acquiring/sdk/v1/acquirer/merchant/dynamiccurrencyconversion/dynamic_currency_conversion_client'
-require 'worldline/acquiring/sdk/v1/acquirer/merchant/payments/payments_client'
-require 'worldline/acquiring/sdk/v1/acquirer/merchant/refunds/refunds_client'
 require 'worldline/acquiring/sdk/v1/acquirer/merchant/technicalreversals/technical_reversals_client'
 
 module Worldline
@@ -26,16 +26,16 @@ module Worldline
 
               # Resource /processing/v1/{acquirerId}/{merchantId}/payments
               #
-              # @return [Worldline::Acquiring::SDK::V1::Acquirer::Merchant::Payments::PaymentsClient]
-              def payments
-                Worldline::Acquiring::SDK::V1::Acquirer::Merchant::Payments::PaymentsClient.new(self, nil)
+              # @return [Worldline::Acquiring::SDK::V1::Acquirer::Merchant::Cardpayments::CardPaymentsClient]
+              def card_payments
+                Worldline::Acquiring::SDK::V1::Acquirer::Merchant::Cardpayments::CardPaymentsClient.new(self, nil)
               end
 
               # Resource /processing/v1/{acquirerId}/{merchantId}/refunds
               #
-              # @return [Worldline::Acquiring::SDK::V1::Acquirer::Merchant::Refunds::RefundsClient]
-              def refunds
-                Worldline::Acquiring::SDK::V1::Acquirer::Merchant::Refunds::RefundsClient.new(self, nil)
+              # @return [Worldline::Acquiring::SDK::V1::Acquirer::Merchant::Cardrefunds::CardRefundsClient]
+              def card_refunds
+                Worldline::Acquiring::SDK::V1::Acquirer::Merchant::Cardrefunds::CardRefundsClient.new(self, nil)
               end
 
               # Resource /processing/v1/{acquirerId}/{merchantId}/account-verifications

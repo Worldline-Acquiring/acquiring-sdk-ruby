@@ -10,18 +10,18 @@ module Worldline
       module V1
         module Acquirer
           module Merchant
-            module Refunds
-              # Query parameters for {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Refunds/operation/getRefund Retrieve refund}
+            module Cardpayments
+              # Query parameters for {https://docs.acquiring.worldline-solutions.com/api-reference#tag/Card-Payments/operation/getPaymentStatus Retrieve payment}
               #
               # @attr [true/false] return_operations
-              class GetRefundParams < Worldline::Acquiring::SDK::Communication::ParamRequest
+              class GetPaymentStatusParams < Worldline::Acquiring::SDK::Communication::ParamRequest
 
                 attr_accessor :return_operations
 
                 # @return [Array<Worldline::Acquiring::SDK::Communication::RequestParam>] representing the attributes of this class
                 def to_request_parameters
                   result = []
-                  result << RequestParam.new('returnOperations', @return_operations.to_s) unless @return_operations.nil?
+                  result << Worldline::Acquiring::SDK::Communication::RequestParam.new('returnOperations', @return_operations.to_s) unless @return_operations.nil?
                   result
                 end
               end
