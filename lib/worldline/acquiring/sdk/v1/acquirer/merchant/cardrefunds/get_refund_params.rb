@@ -21,7 +21,7 @@ module Worldline
                 # @return [Array<Worldline::Acquiring::SDK::Communication::RequestParam>] representing the attributes of this class
                 def to_request_parameters
                   result = []
-                  result << RequestParam.new('returnOperations', @return_operations.to_s) unless @return_operations.nil?
+                  result << Worldline::Acquiring::SDK::Communication::RequestParam.new('returnOperations', @return_operations.to_s) unless @return_operations.nil?
                   result
                 end
               end

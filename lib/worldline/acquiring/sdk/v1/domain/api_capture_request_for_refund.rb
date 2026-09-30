@@ -4,6 +4,7 @@
 require 'date'
 
 require 'worldline/acquiring/sdk/domain/data_object'
+require 'worldline/acquiring/sdk/v1/domain/capture_point_of_sale_data'
 require 'worldline/acquiring/sdk/v1/domain/payment_references'
 require 'worldline/acquiring/sdk/v1/domain/terminal_data'
 
@@ -12,11 +13,14 @@ module Worldline
     module SDK
       module V1
         module Domain
+          # @attr [Worldline::Acquiring::SDK::V1::Domain::CapturePointOfSaleData] capture_point_of_sale_data
           # @attr [String] operation_id
           # @attr [Worldline::Acquiring::SDK::V1::Domain::PaymentReferences] references
           # @attr [Worldline::Acquiring::SDK::V1::Domain::TerminalData] terminal_data
           # @attr [DateTime] transaction_timestamp
           class ApiCaptureRequestForRefund < Worldline::Acquiring::SDK::Domain::DataObject
+
+            attr_accessor :capture_point_of_sale_data
 
             attr_accessor :operation_id
 
@@ -29,6 +33,7 @@ module Worldline
             # @return (Hash)
             def to_h
               hash = super
+              hash['capturePointOfSaleData'] = @capture_point_of_sale_data.to_h unless @capture_point_of_sale_data.nil?
               hash['operationId'] = @operation_id unless @operation_id.nil?
               hash['references'] = @references.to_h unless @references.nil?
               hash['terminalData'] = @terminal_data.to_h unless @terminal_data.nil?
@@ -38,6 +43,10 @@ module Worldline
 
             def from_hash(hash)
               super
+              if hash.has_key? 'capturePointOfSaleData'
+                raise TypeError, "value '%s' is not a Hash" % [hash['capturePointOfSaleData']] unless hash['capturePointOfSaleData'].is_a? Hash
+                @capture_point_of_sale_data = Worldline::Acquiring::SDK::V1::Domain::CapturePointOfSaleData.new_from_hash(hash['capturePointOfSaleData'])
+              end
               if hash.has_key? 'operationId'
                 @operation_id = hash['operationId']
               end

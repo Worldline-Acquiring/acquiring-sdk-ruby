@@ -1,0 +1,97 @@
+#
+# This file was automatically generated.
+#
+require 'worldline/acquiring/sdk/domain/data_object'
+require 'worldline/acquiring/sdk/v1/domain/amount_data'
+require 'worldline/acquiring/sdk/v1/domain/payment_method_data'
+require 'worldline/acquiring/sdk/v1/domain/transaction_references_dispute'
+
+module Worldline
+  module Acquiring
+    module SDK
+      module V1
+        module Domain
+          # @attr [String] cardholder_verification_method
+          # @attr [String] local_transaction_date_time
+          # @attr [String] payment_category
+          # @attr [Worldline::Acquiring::SDK::V1::Domain::PaymentMethodData] payment_method_data
+          # @attr [String] point_of_sale_entry_mode
+          # @attr [String] scheme_processed_date_time
+          # @attr [Worldline::Acquiring::SDK::V1::Domain::AmountData] settlement_amount
+          # @attr [Worldline::Acquiring::SDK::V1::Domain::AmountData] transaction_amount
+          # @attr [Worldline::Acquiring::SDK::V1::Domain::TransactionReferencesDispute] transaction_references
+          class OriginalTransactionData < Worldline::Acquiring::SDK::Domain::DataObject
+
+            attr_accessor :cardholder_verification_method
+
+            attr_accessor :local_transaction_date_time
+
+            attr_accessor :payment_category
+
+            attr_accessor :payment_method_data
+
+            attr_accessor :point_of_sale_entry_mode
+
+            attr_accessor :scheme_processed_date_time
+
+            attr_accessor :settlement_amount
+
+            attr_accessor :transaction_amount
+
+            attr_accessor :transaction_references
+
+            # @return (Hash)
+            def to_h
+              hash = super
+              hash['cardholderVerificationMethod'] = @cardholder_verification_method unless @cardholder_verification_method.nil?
+              hash['localTransactionDateTime'] = @local_transaction_date_time unless @local_transaction_date_time.nil?
+              hash['paymentCategory'] = @payment_category unless @payment_category.nil?
+              hash['paymentMethodData'] = @payment_method_data.to_h unless @payment_method_data.nil?
+              hash['pointOfSaleEntryMode'] = @point_of_sale_entry_mode unless @point_of_sale_entry_mode.nil?
+              hash['schemeProcessedDateTime'] = @scheme_processed_date_time unless @scheme_processed_date_time.nil?
+              hash['settlementAmount'] = @settlement_amount.to_h unless @settlement_amount.nil?
+              hash['transactionAmount'] = @transaction_amount.to_h unless @transaction_amount.nil?
+              hash['transactionReferences'] = @transaction_references.to_h unless @transaction_references.nil?
+              hash
+            end
+
+            def from_hash(hash)
+              super
+              if hash.has_key? 'cardholderVerificationMethod'
+                @cardholder_verification_method = hash['cardholderVerificationMethod']
+              end
+              if hash.has_key? 'localTransactionDateTime'
+                @local_transaction_date_time = hash['localTransactionDateTime']
+              end
+              if hash.has_key? 'paymentCategory'
+                @payment_category = hash['paymentCategory']
+              end
+              if hash.has_key? 'paymentMethodData'
+                raise TypeError, "value '%s' is not a Hash" % [hash['paymentMethodData']] unless hash['paymentMethodData'].is_a? Hash
+                @payment_method_data = Worldline::Acquiring::SDK::V1::Domain::PaymentMethodData.new_from_hash(hash['paymentMethodData'])
+              end
+              if hash.has_key? 'pointOfSaleEntryMode'
+                @point_of_sale_entry_mode = hash['pointOfSaleEntryMode']
+              end
+              if hash.has_key? 'schemeProcessedDateTime'
+                @scheme_processed_date_time = hash['schemeProcessedDateTime']
+              end
+              if hash.has_key? 'settlementAmount'
+                raise TypeError, "value '%s' is not a Hash" % [hash['settlementAmount']] unless hash['settlementAmount'].is_a? Hash
+                @settlement_amount = Worldline::Acquiring::SDK::V1::Domain::AmountData.new_from_hash(hash['settlementAmount'])
+              end
+              if hash.has_key? 'transactionAmount'
+                raise TypeError, "value '%s' is not a Hash" % [hash['transactionAmount']] unless hash['transactionAmount'].is_a? Hash
+                @transaction_amount = Worldline::Acquiring::SDK::V1::Domain::AmountData.new_from_hash(hash['transactionAmount'])
+              end
+              if hash.has_key? 'transactionReferences'
+                raise TypeError, "value '%s' is not a Hash" % [hash['transactionReferences']] unless hash['transactionReferences'].is_a? Hash
+                @transaction_references = Worldline::Acquiring::SDK::V1::Domain::TransactionReferencesDispute.new_from_hash(hash['transactionReferences'])
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+end

@@ -6,6 +6,7 @@ require 'date'
 require 'worldline/acquiring/sdk/domain/data_object'
 require 'worldline/acquiring/sdk/v1/domain/amount_data'
 require 'worldline/acquiring/sdk/v1/domain/capture_amount_breakdown_data'
+require 'worldline/acquiring/sdk/v1/domain/capture_point_of_sale_data'
 require 'worldline/acquiring/sdk/v1/domain/dcc_data'
 require 'worldline/acquiring/sdk/v1/domain/marketplace_data'
 require 'worldline/acquiring/sdk/v1/domain/payment_references'
@@ -18,6 +19,7 @@ module Worldline
         module Domain
           # @attr [Worldline::Acquiring::SDK::V1::Domain::AmountData] amount
           # @attr [Worldline::Acquiring::SDK::V1::Domain::CaptureAmountBreakdownData] capture_amount_breakdown_data
+          # @attr [Worldline::Acquiring::SDK::V1::Domain::CapturePointOfSaleData] capture_point_of_sale_data
           # @attr [Integer] capture_sequence_number
           # @attr [Worldline::Acquiring::SDK::V1::Domain::DccData] dynamic_currency_conversion
           # @attr [true/false] is_final
@@ -31,6 +33,8 @@ module Worldline
             attr_accessor :amount
 
             attr_accessor :capture_amount_breakdown_data
+
+            attr_accessor :capture_point_of_sale_data
 
             attr_accessor :capture_sequence_number
 
@@ -53,6 +57,7 @@ module Worldline
               hash = super
               hash['amount'] = @amount.to_h unless @amount.nil?
               hash['captureAmountBreakdownData'] = @capture_amount_breakdown_data.to_h unless @capture_amount_breakdown_data.nil?
+              hash['capturePointOfSaleData'] = @capture_point_of_sale_data.to_h unless @capture_point_of_sale_data.nil?
               hash['captureSequenceNumber'] = @capture_sequence_number unless @capture_sequence_number.nil?
               hash['dynamicCurrencyConversion'] = @dynamic_currency_conversion.to_h unless @dynamic_currency_conversion.nil?
               hash['isFinal'] = @is_final unless @is_final.nil?
@@ -73,6 +78,10 @@ module Worldline
               if hash.has_key? 'captureAmountBreakdownData'
                 raise TypeError, "value '%s' is not a Hash" % [hash['captureAmountBreakdownData']] unless hash['captureAmountBreakdownData'].is_a? Hash
                 @capture_amount_breakdown_data = Worldline::Acquiring::SDK::V1::Domain::CaptureAmountBreakdownData.new_from_hash(hash['captureAmountBreakdownData'])
+              end
+              if hash.has_key? 'capturePointOfSaleData'
+                raise TypeError, "value '%s' is not a Hash" % [hash['capturePointOfSaleData']] unless hash['capturePointOfSaleData'].is_a? Hash
+                @capture_point_of_sale_data = Worldline::Acquiring::SDK::V1::Domain::CapturePointOfSaleData.new_from_hash(hash['capturePointOfSaleData'])
               end
               if hash.has_key? 'captureSequenceNumber'
                 @capture_sequence_number = hash['captureSequenceNumber']

@@ -13,6 +13,7 @@ module Worldline
           # @attr [String] cardholder_activated_terminal_level
           # @attr [true/false] is_attended_terminal
           # @attr [true/false] is_offline_approved
+          # @attr [String] mpos_device
           # @attr [String] offline_authorization_response_code
           # @attr [String] pin_entry_capability
           # @attr [String] terminal_id
@@ -28,6 +29,8 @@ module Worldline
             attr_accessor :is_attended_terminal
 
             attr_accessor :is_offline_approved
+
+            attr_accessor :mpos_device
 
             attr_accessor :offline_authorization_response_code
 
@@ -45,6 +48,7 @@ module Worldline
               hash['cardholderActivatedTerminalLevel'] = @cardholder_activated_terminal_level unless @cardholder_activated_terminal_level.nil?
               hash['isAttendedTerminal'] = @is_attended_terminal unless @is_attended_terminal.nil?
               hash['isOfflineApproved'] = @is_offline_approved unless @is_offline_approved.nil?
+              hash['mposDevice'] = @mpos_device unless @mpos_device.nil?
               hash['offlineAuthorizationResponseCode'] = @offline_authorization_response_code unless @offline_authorization_response_code.nil?
               hash['pinEntryCapability'] = @pin_entry_capability unless @pin_entry_capability.nil?
               hash['terminalId'] = @terminal_id unless @terminal_id.nil?
@@ -72,6 +76,9 @@ module Worldline
               end
               if hash.has_key? 'isOfflineApproved'
                 @is_offline_approved = hash['isOfflineApproved']
+              end
+              if hash.has_key? 'mposDevice'
+                @mpos_device = hash['mposDevice']
               end
               if hash.has_key? 'offlineAuthorizationResponseCode'
                 @offline_authorization_response_code = hash['offlineAuthorizationResponseCode']

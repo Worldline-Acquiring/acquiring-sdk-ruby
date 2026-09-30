@@ -3,6 +3,9 @@
 #
 require 'worldline/acquiring/sdk/api_resource'
 require 'worldline/acquiring/sdk/v1/acquirer/acquirer_client'
+require 'worldline/acquiring/sdk/v1/disputedocuments/dispute_documents_client'
+require 'worldline/acquiring/sdk/v1/disputeentries/dispute_entries_client'
+require 'worldline/acquiring/sdk/v1/disputemanagement/dispute_management_client'
 require 'worldline/acquiring/sdk/v1/ping/ping_client'
 
 module Worldline
@@ -35,6 +38,27 @@ module Worldline
           # @return [Worldline::Acquiring::SDK::V1::Ping::PingClient]
           def ping
             Worldline::Acquiring::SDK::V1::Ping::PingClient.new(self, nil)
+          end
+
+          # Resource /dispute-management/v1/disputes/search
+          #
+          # @return [Worldline::Acquiring::SDK::V1::Disputemanagement::DisputeManagementClient]
+          def dispute_management
+            Worldline::Acquiring::SDK::V1::Disputemanagement::DisputeManagementClient.new(self, nil)
+          end
+
+          # Resource /dispute-management/v1/documents
+          #
+          # @return [Worldline::Acquiring::SDK::V1::Disputedocuments::DisputeDocumentsClient]
+          def dispute_documents
+            Worldline::Acquiring::SDK::V1::Disputedocuments::DisputeDocumentsClient.new(self, nil)
+          end
+
+          # Resource /dispute-management/v1/dispute-entries/search
+          #
+          # @return [Worldline::Acquiring::SDK::V1::Disputeentries::DisputeEntriesClient]
+          def dispute_entries
+            Worldline::Acquiring::SDK::V1::Disputeentries::DisputeEntriesClient.new(self, nil)
           end
         end
       end
