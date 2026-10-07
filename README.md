@@ -24,12 +24,13 @@ Note that the source code of the unit tests and integration tests can only be fo
 
 ## Requirements
 
-Ruby 2.3 or higher is required.
-As for JRuby, version 9.0.0.0 and higher are supported.
+Ruby 3.2 or higher is required.
+As for JRuby, version 10.0.0.0 and higher are supported.
 In addition, the following packages are required:
 
-* [httpclient](https://github.com/nahi/httpclient) 2.8 or higher
-* [concurrent-ruby](https://github.com/ruby-concurrency/concurrent-ruby) 1.0 or higher
+* [httpclient](https://github.com/nahi/httpclient) 2.9 or higher
+* [concurrent-ruby](https://github.com/ruby-concurrency/concurrent-ruby) 1.3.5 or higher
+* [base64](https://github.com/ruby/base64) 0.3 or higher
 
 ## Installation
 
@@ -88,15 +89,16 @@ In addition, to run the proxy integration tests, the proxy URI, username and pas
 
 In order to run the unit and integration tests, some additional dependencies are required:
 
-* [rake](https://ruby.github.io/rake/) 12.3.3 or higher
-* [rspec](https://github.com/rspec/rspec) 3.5 or higher
-* [webmock](https://github.com/bblimke/webmock) 2.1 or higher
-* [sinatra](https://github.com/sinatra/sinatra) 2.1 or higher
-* [webrick](https://github.com/ruby/webrick) 1.7 or higher
+* [rake](https://ruby.github.io/rake/) 13.4 or higher
+* [rspec](https://github.com/rspec/rspec) 3.13 or higher
+* [webmock](https://github.com/bblimke/webmock) 3.26 or higher
+* [sinatra](https://github.com/sinatra/sinatra) 4.2 or higher
+* [webrick](https://github.com/ruby/webrick) 1.9 or higher
+* [rackup](https://github.com/rack/rackup) 2.2 or higher
 
 They can be installed using the following command:
 
-    gem install rake rspec webmock sinatra
+    gem install rake rspec webmock sinatra webrick rackup
 
 *Note: if rake is already installed as part of the Ruby installation, this will cause a conflict error. This can safely be ignored.*
 
@@ -124,7 +126,7 @@ The following commands can now be executed from the root directory of the SDK fo
 
 Documentation can be generated with YARD. YARD can be installed as a gem. The gems required to generate documentation are:
 
-* [rake](https://ruby.github.io/rake/) 12.3.3 or higher
+* [rake](https://ruby.github.io/rake/) 13.4 or higher
 * [yard](https://github.com/lsegal/yard) 0.9.5 or higher
 
 They can be installed using the following command:

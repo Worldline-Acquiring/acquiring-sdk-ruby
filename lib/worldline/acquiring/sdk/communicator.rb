@@ -366,13 +366,13 @@ module Worldline
         # Closes any connections idle for more than _idle_time_ seconds.
         # Will not have any effect if the connection is not a pooled connection (an instance of {Worldline::Acquiring::SDK::Communication::PooledConnection}).
         def close_idle_connections(idle_time)
-          @connection.close_idle_connections(idle_time) if @connection.is_a? PooledConnection
+          @connection.close_idle_connections(idle_time) if @connection.is_a? Communication::PooledConnection
         end
 
         # Closes any connections that have expired.
         # Will not have any effect if the connection is not a pooled connection (an instance of {Worldline::Acquiring::SDK::Communication::PooledConnection}).
         def close_expired_connections
-          @connection.close_expired_connections if @connection.is_a? PooledConnection
+          @connection.close_expired_connections if @connection.is_a? Communication::PooledConnection
         end
 
         # Sets the current body obfuscator to use.
@@ -460,7 +460,7 @@ module Worldline
         end
 
         def process_binary_response(status, body, headers, context)
-          update_context(response.headers, context) unless context.nil?
+          update_context(headers, context) unless context.nil?
 
           if status < 400
             yield headers, body
