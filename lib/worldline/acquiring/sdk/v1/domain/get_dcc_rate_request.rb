@@ -1,6 +1,8 @@
 #
 # This file was automatically generated.
 #
+require 'date'
+
 require 'worldline/acquiring/sdk/domain/data_object'
 require 'worldline/acquiring/sdk/v1/domain/card_data_for_dcc'
 require 'worldline/acquiring/sdk/v1/domain/point_of_sale_data_for_dcc'
@@ -13,6 +15,7 @@ module Worldline
         module Domain
           # @attr [Worldline::Acquiring::SDK::V1::Domain::CardDataForDcc] card_payment_data
           # @attr [String] operation_id
+          # @attr [Date] original_payment_date
           # @attr [Worldline::Acquiring::SDK::V1::Domain::PointOfSaleDataForDcc] point_of_sale_data
           # @attr [String] rate_reference_id
           # @attr [String] target_currency
@@ -22,6 +25,8 @@ module Worldline
             attr_accessor :card_payment_data
 
             attr_accessor :operation_id
+
+            attr_accessor :original_payment_date
 
             attr_accessor :point_of_sale_data
 
@@ -36,6 +41,7 @@ module Worldline
               hash = super
               hash['cardPaymentData'] = @card_payment_data.to_h unless @card_payment_data.nil?
               hash['operationId'] = @operation_id unless @operation_id.nil?
+              hash['originalPaymentDate'] = @original_payment_date.iso8601 unless @original_payment_date.nil?
               hash['pointOfSaleData'] = @point_of_sale_data.to_h unless @point_of_sale_data.nil?
               hash['rateReferenceId'] = @rate_reference_id unless @rate_reference_id.nil?
               hash['targetCurrency'] = @target_currency unless @target_currency.nil?
@@ -51,6 +57,9 @@ module Worldline
               end
               if hash.has_key? 'operationId'
                 @operation_id = hash['operationId']
+              end
+              if hash.has_key? 'originalPaymentDate'
+                @original_payment_date = Date.parse(hash['originalPaymentDate'])
               end
               if hash.has_key? 'pointOfSaleData'
                 raise TypeError, "value '%s' is not a Hash" % [hash['pointOfSaleData']] unless hash['pointOfSaleData'].is_a? Hash

@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name           = 'acquiring-sdk-ruby'
-  spec.version        = '4.0.0'
+  spec.version        = '4.1.0'
   spec.authors        = ['Worldline Acquiring']
   spec.email          = ['github.acquiring@worldline.com']
   spec.summary        = %q{SDK to communicate with the Worldline Acquiring platform using the Worldline Acquiring API}
